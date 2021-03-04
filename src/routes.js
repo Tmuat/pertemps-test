@@ -1,4 +1,4 @@
-export default {
-    '/': 'Home',
-    '/movie': 'Movie'
-  }
+// export default {
+//     '/': 'Home',
+//     '/movie': 'Movie'
+//   }

@@ -1,15 +1,15 @@
 <template>
   <div id="home">
-    <Search />
+    <List />
   </div>
 </template>
 
 <script>
-import Search from "./components/Search";
+import List from "./components/List";
 export default {
   name: "Home",
   components: {
-    Search,
+    List,
   },
 };
 </script>
@@ -22,5 +22,19 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.header-container {
+  width: 100vw;
+  height: 40vh;
+  overflow: hidden;
+}
+
+.landing-image {
+  width: 100%;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  overflow: hidden;
 }
 </style>
