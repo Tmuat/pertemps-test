@@ -37,4 +37,14 @@ export default {
   background-size: cover !important;
   overflow: hidden;
 }
+
+.movie-images {
+  width: 100%;
+}
+
+.custom-category {
+  height: 100px;
+  z-index: 999;
+  transform:translate(0px, -20px);
+}
 </style>
