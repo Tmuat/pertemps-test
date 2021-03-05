@@ -1,15 +1,81 @@
 <template>
   <div class="movies">
-    <div class="container-fluid p-0 header-container" v-if="dataReady">
-        <img class="landing-image"
-          v-bind:src="'https://image.tmdb.org/t/p/original' + results[0].poster_path"/>
+    <div
+      class="container-fluid p-0 header-container hero-image"
+      :style="{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${baseImageUrl +
+          results[0].backdrop_path})`,
+      }"
+      v-if="dataReady"
+    >
+      <div class="hero-text">
+        <h1 style="font-size:50px">{{ results[0].title }}</h1>
+        <p>{{ results[0].release_date }}</p>
+        <button>Hire me</button>
+      </div>
     </div>
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-6 offset-md-3">
-          <div class="card custom-category">
-            <p @click="getResult('popular')">Popular</p>
-            <p @click="getResult('top_rated')">Top Rated</p>
+        <div class="col-12 col-md-11 col-lg-8 mx-auto">
+          <div class="card custom-category p-3 p-md-1">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <h3 class="text-center text-md-left m-0 p-3">
+                  Categories & Filters
+                </h3>
+              </div>
+              <div class="col-6 col-sm-2 p-0 mx-auto">
+                <p class="m-0 list" @click="getResult('popular')">
+                  <small>Popular</small>
+                </p>
+                <p class="m-0 list" @click="getResult('top_rated')">
+                  <small>Top Rated</small>
+                </p>
+                <p class="m-0 list" @click="getResult('upcoming')">
+                  <small>Upcoming</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('28')">
+                  <small>Action</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('12')">
+                  <small>Adventure</small>
+                </p>
+              </div>
+              <div class="col-6 col-sm-2 p-0 mx-auto">
+                <p class="m-0 list" @click="getResultGenres('16')">
+                  <small>Animation</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('35')">
+                  <small>Comedy</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('80')">
+                  <small>Crime</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('99')">
+                  <small>Documentary</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('18')">
+                  <small>Drama</small>
+                </p>
+              </div>
+              <div class="col-12 col-sm-2 p-0 mx-auto">
+                <p class="m-0 list" @click="getResultGenres('10751')">
+                  <small>Family</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('14')">
+                  <small>Fantasy</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('36')">
+                  <small>History</small>
+                </p>
+                <p class="m-0 list" @click="getResultGenres('10749')">
+                  <small>Romance</small>
+                </p>
+                <p class="m-0 list" @click="getResult('popular')">
+                  <small>All Movies</small>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -21,9 +87,7 @@
         >
           <img
             class="movie-images"
-            v-bind:src="
-              'https://image.tmdb.org/t/p/original' + result.poster_path
-            "
+            v-bind:src="baseImageUrl + result.poster_path"
           />
         </div>
       </div>
@@ -39,22 +103,39 @@ export default {
     return {
       dataReady: false,
       results: "",
+      baseImageUrl: "https://image.tmdb.org/t/p/original",
     };
   },
   methods: {
-    getResult(category) {
+    getResult(filter) {
       const baseUrl = "https://api.themoviedb.org/3/movie/";
-      const selectedCategory = category;
+      const selectedFilter = filter;
       const api = "f9c3ae91ea7132ed424564f73bb859e0";
       axios
-        .get(baseUrl + selectedCategory + "?api_key=" + api)
+        .get(baseUrl + selectedFilter + "?api_key=" + api)
+        .then((response) => {
+          this.results = response.data.results;
+        });
+    },
+    getResultGenres(filter) {
+      const baseUrl = "https://api.themoviedb.org/3/";
+      const selectedFilter = filter;
+      const api = "f9c3ae91ea7132ed424564f73bb859e0";
+      axios
+        .get(
+          baseUrl +
+            "discover/movie?api_key=" +
+            api +
+            "&with_genres=" +
+            selectedFilter
+        )
         .then((response) => {
           this.results = response.data.results;
         });
     },
   },
   async mounted() {
-    await this.getResult('popular');
+    await this.getResult("popular");
     this.dataReady = true;
   },
 };
