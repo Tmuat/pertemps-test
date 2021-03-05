@@ -36,7 +36,9 @@ export default {
 
 .custom-category {
   z-index: 999;
-  transform:translate(0px, -20px);
+  -webkit-transform:translate(0px, -20px);
+      -ms-transform:translate(0px, -20px);
+          transform:translate(0px, -20px);
 }
 
 .list {
@@ -62,7 +64,9 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   color: white;
 }
 
