@@ -26,7 +26,7 @@ export default {
 
 .header-container {
   width: 100vw;
-  height: 40vh;
+  height: 50vh;
   overflow: hidden;
 }
 

@@ -9,19 +9,25 @@
       }"
       v-if="dataReady"
     >
-      <div class="hero-text">
-        <h1 style="font-size:50px">{{ results[0].title }}</h1>
-        <p>{{ results[0].release_date.substring(0, 4) }}</p>
-        <div class="d-inline mr-5">
-          <div class="stars-outer">
-            <div class="stars-inner"> {{ results[0].vote_average }}</div>
+      <div class="row">
+        <div class="hero-text col-12">
+          <h1 class="" style="font-size:50px">{{ results[0].title }}</h1>
+          <p>{{ results[0].release_date.substring(0, 4) }}</p>
+          <div class="row">
+            <div class="col-12 col-md-3 col-xl-2 offset-md-3 offset-xl-4 mb-2 mb-md-0">
+              <div class="stars-outer">
+                <div class="stars-inner">{{ results[0].vote_average }}</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 col-xl-2 ">
+              <button
+                class="btn btn-transparent border-warning text-warning"
+              >
+                Got To Movie
+              </button>
+            </div>
           </div>
         </div>
-        <button
-          class="d-inline ml-5 btn btn-transparent border-warning text-warning"
-        >
-          Got To Movie
-        </button>
       </div>
     </div>
     <div class="container">
@@ -120,7 +126,7 @@ export default {
   methods: {
     getRatings(rating) {
       // https://codepen.io/bradtraversy/pen/GQLRZv?editors=1010
-      const starPercentage = ((rating/2) / this.starsTotal) * 100;
+      const starPercentage = (rating / 2 / this.starsTotal) * 100;
 
       // Round to nearest 10
       const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
@@ -138,8 +144,8 @@ export default {
         .get(baseUrl + selectedFilter + "?api_key=" + api)
         .then((response) => {
           this.results = response.data.results;
-          const rating = this.results[0].vote_average
-          this.getRatings(rating)
+          const rating = this.results[0].vote_average;
+          this.getRatings(rating);
         });
     },
     getResultGenres(filter) {
@@ -156,8 +162,8 @@ export default {
         )
         .then((response) => {
           this.results = response.data.results;
-          const rating = this.results[0].vote_average
-          this.getRatings(rating)
+          const rating = this.results[0].vote_average;
+          this.getRatings(rating);
         });
     },
   },
