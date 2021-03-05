@@ -107,4 +107,31 @@ export default {
   font-weight: 900;
   color: #f8ce0b;
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+.card-overlay:hover .overlay,
+.card-overlay:focus .overlay,
+.card-overlay:active .overlay {
+  opacity: 1;
+}
+
+.overlay .inner-overlay {
+    position:relative;
+    top:25%;
+}
 </style>

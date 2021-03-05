@@ -14,15 +14,15 @@
           <h1 class="" style="font-size:50px">{{ results[0].title }}</h1>
           <p>{{ results[0].release_date.substring(0, 4) }}</p>
           <div class="row">
-            <div class="col-12 col-md-3 col-xl-2 offset-md-3 offset-xl-4 mb-2 mb-md-0">
+            <div
+              class="col-12 col-md-3 col-xl-2 offset-md-3 offset-xl-4 mb-2 mb-md-0"
+            >
               <div class="stars-outer">
                 <div class="stars-inner">{{ results[0].vote_average }}</div>
               </div>
             </div>
             <div class="col-12 col-md-3 col-xl-2 ">
-              <button
-                class="btn btn-transparent border-warning text-warning"
-              >
+              <button class="btn btn-transparent border-warning text-warning">
                 Got To Movie
               </button>
             </div>
@@ -97,14 +97,23 @@
       </div>
       <div class="row">
         <div
-          class="col-11 col-sm-6 col-md-4 col-lg-3 p-2 mx-auto"
+          class="col-11 col-sm-6 col-md-4 col-lg-3 p-2 mx-auto card-overlay"
           v-for="result in results"
           :key="result.id"
         >
-          <img
-            class="movie-images"
-            v-bind:src="baseImageUrl + result.poster_path"
-          />
+            <img
+              class="movie-images"
+              v-bind:src="baseImageUrl + result.poster_path"
+            />
+            <div class="overlay p-0">
+              <div class="inner-overlay">
+                <h3 class="p-2">{{ result.title }}</h3>
+                <p>{{ result.release_date.substring(0, 4) }}</p>
+                <a href="#" class="btn btn-transparent border-warning text-warning">
+                  Got To Movie
+                </a>
+              </div>
+            </div>
         </div>
       </div>
     </div>
