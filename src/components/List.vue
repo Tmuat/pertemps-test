@@ -1,5 +1,6 @@
 <template>
   <div class="movies">
+    <!-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_hero_image -->
     <div
       class="container-fluid p-0 header-container hero-image"
       :style="{
@@ -10,8 +11,17 @@
     >
       <div class="hero-text">
         <h1 style="font-size:50px">{{ results[0].title }}</h1>
-        <p>{{ results[0].release_date }}</p>
-        <button>Hire me</button>
+        <p>{{ results[0].release_date.substring(0, 4) }}</p>
+        <div class="d-inline mr-5">
+          <div class="stars-outer">
+            <div class="stars-inner"> {{ results[0].vote_average }}</div>
+          </div>
+        </div>
+        <button
+          class="d-inline ml-5 btn btn-transparent border-warning text-warning"
+        >
+          Got To Movie
+        </button>
       </div>
     </div>
     <div class="container">
@@ -104,9 +114,22 @@ export default {
       dataReady: false,
       results: "",
       baseImageUrl: "https://image.tmdb.org/t/p/original",
+      starsTotal: 5,
     };
   },
   methods: {
+    getRatings(rating) {
+      // https://codepen.io/bradtraversy/pen/GQLRZv?editors=1010
+      const starPercentage = ((rating/2) / this.starsTotal) * 100;
+
+      // Round to nearest 10
+      const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
+
+      // Set width of stars-inner to percentage
+      document.querySelector(
+        `.stars-inner`
+      ).style.width = starPercentageRounded;
+    },
     getResult(filter) {
       const baseUrl = "https://api.themoviedb.org/3/movie/";
       const selectedFilter = filter;
@@ -115,6 +138,8 @@ export default {
         .get(baseUrl + selectedFilter + "?api_key=" + api)
         .then((response) => {
           this.results = response.data.results;
+          const rating = this.results[0].vote_average
+          this.getRatings(rating)
         });
     },
     getResultGenres(filter) {
@@ -131,6 +156,8 @@ export default {
         )
         .then((response) => {
           this.results = response.data.results;
+          const rating = this.results[0].vote_average
+          this.getRatings(rating)
         });
     },
   },
